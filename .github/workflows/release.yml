@@ -6,7 +6,7 @@ on:
       - "v*.*.*"
 
 permissions:
-  contents: write 
+  contents: write
 
 jobs:
   build:
@@ -30,9 +30,19 @@ jobs:
       - name: Build binary
         run: pyinstaller --onefile main.py -n cper
 
+      - name: Rename binary by OS
+        run: |
+          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            mv dist/cper.exe dist/cper-windows.exe
+          elif [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+            mv dist/cper dist/cper-linux
+          else
+            mv dist/cper dist/cper-macos
+          fi
+
       - name: Upload binaries to release
         uses: softprops/action-gh-release@v1
         with:
-          files: dist/cper*
+          files: dist/cper-*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
