@@ -25,41 +25,37 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install -r requirements.txt pyinstaller
+        run: pip install -r requirements.txt pyinstaller pyfiglet
 
       - name: Build binary
-        run: |
-          pyinstaller --onefile --clean --noupx main.py -n cper
-
-      - name: Rename binary by OS
         shell: bash
         run: |
+          # Determine PyFiglet fonts path
           if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            FONT_PATH=$(python -c "import os, pyfiglet; print(os.path.join(os.path.dirname(pyfiglet.__file__), 'fonts'))")
+            pyinstaller --onefile --clean --noupx --add-data "$FONT_PATH;pyfiglet/fonts" main.py -n cper
             mv dist/cper.exe dist/cper-windows.exe
           elif [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+            FONT_PATH=$(python3 -c "import os, pyfiglet; print(os.path.join(os.path.dirname(pyfiglet.__file__), 'fonts'))")
+            pyinstaller --onefile --clean --noupx --add-data "$FONT_PATH:pyfiglet/fonts" main.py -n cper
             mv dist/cper dist/cper-linux
           elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+            FONT_PATH=$(python3 -c "import os, pyfiglet; print(os.path.join(os.path.dirname(pyfiglet.__file__), 'fonts'))")
+            pyinstaller --onefile --clean --noupx --add-data "$FONT_PATH:pyfiglet/fonts" main.py -n cper
             mv dist/cper dist/cper-macos
           fi
 
-      - name: Compress binary (Linux)
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update && sudo apt-get install -y zip
-          cd dist
-          zip cper-linux.zip cper-linux
-
-      - name: Compress binary (macOS)
-        if: runner.os == 'macOS'
+      - name: Compress binary
+        shell: bash
         run: |
           cd dist
-          zip cper-macos.zip cper-macos
-
-      - name: Compress binary (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          cd dist
-          powershell Compress-Archive -Path cper-windows.exe -DestinationPath cper-windows.zip
+          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            powershell Compress-Archive -Path cper-windows.exe -DestinationPath cper-windows.zip
+          elif [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+            zip cper-linux.zip cper-linux
+          elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+            zip cper-macos.zip cper-macos
+          fi
 
       - name: Upload zipped binaries to release
         uses: softprops/action-gh-release@v1

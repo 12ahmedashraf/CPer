@@ -25,19 +25,24 @@
 
 ## Installation
 
-1. Go to the **[Releases](https://github.com/<your-username>/<your-repo>/releases)** page.
-2. Download the latest binary for your OS:
-   - `cper-windows.exe` (Windows)
-   - `cper-linux` (Linux)
-   - `cper-macos` (macOS)
-3. (Optional) Move the binary into a directory on your `PATH`.
+```bash
+# Clone the repository
+git clone https://github.com/12ahmedashraf/CPer.git
+cd CPer
 
-> **Linux/macOS**: you may need to make the binary executable:
+# Install Python dependencies
+pip install -r requirements.txt pyfiglet rich requests
+
+# Run directly with Python
+python main.py
+```
+
+> **Tip:** If you want a single executable, you can build your own binary with PyInstaller:
 >
 > ```bash
-> chmod +x ./cper-linux
-> # or
-> chmod +x ./cper-macos
+> pyinstaller --onefile --clean main.py -n cper
+> # On Windows, the EXE will be in dist\cper.exe
+> # On Linux/macOS, the executable will be in dist/cper
 > ```
 
 ---
@@ -55,6 +60,9 @@ Run directly:
 
 # Windows
 cper-windows.exe
+
+# Or from source
+python main.py
 ```
 
 If you moved it to your `PATH`, you can run simply:
@@ -77,18 +85,6 @@ cper
 | `contests`                                   | List upcoming Codeforces contests                                                                        |
 | `help`                                       | Show the help page                                                                                       |
 | `exit`                                       | Quit `cper`                                                                                              |
-
----
-
-## Build From Source (Optional)
-
-```bash
-git clone https://github.com/<your-username>/<your-repo>.git
-cd <your-repo>
-
-pip install -r requirements.txt pyinstaller
-pyinstaller --onefile main.py -n cper
-```
 
 ---
 
