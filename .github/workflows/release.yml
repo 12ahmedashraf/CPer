@@ -42,17 +42,24 @@ jobs:
             mv dist/cper dist/cper-macos
           fi
 
-      - name: Install zip (Linux only)
+      - name: Compress binary (Linux)
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y zip
+        run: |
+          sudo apt-get update && sudo apt-get install -y zip
+          cd dist
+          zip cper-linux.zip cper-linux
 
-      - name: Compress binaries into zip
-        shell: bash
+      - name: Compress binary (macOS)
+        if: runner.os == 'macOS'
         run: |
           cd dist
-          for file in cper-*; do
-            zip "${file}.zip" "$file"
-          done
+          zip cper-macos.zip cper-macos
+
+      - name: Compress binary (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          cd dist
+          powershell Compress-Archive -Path cper-windows.exe -DestinationPath cper-windows.zip
 
       - name: Upload zipped binaries to release
         uses: softprops/action-gh-release@v1
