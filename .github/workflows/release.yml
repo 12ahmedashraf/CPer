@@ -42,9 +42,17 @@ jobs:
             mv dist/cper dist/cper-macos
           fi
 
-      - name: Upload binaries to release
+      - name: Compress binaries into zip
+        shell: bash
+        run: |
+          cd dist
+          for file in cper-*; do
+            zip "${file}.zip" "$file"
+          done
+
+      - name: Upload zipped binaries to release
         uses: softprops/action-gh-release@v1
         with:
-          files: dist/cper-*
+          files: dist/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
