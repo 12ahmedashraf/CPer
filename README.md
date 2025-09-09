@@ -47,32 +47,6 @@ python main.py
 
 ---
 
-## Usage
-
-Run directly:
-
-```bash
-# Linux
-./cper-linux
-
-# macOS
-./cper-macos
-
-# Windows
-cper-windows.exe
-
-# Or from source
-python main.py
-```
-
-If you moved it to your `PATH`, you can run simply:
-
-```bash
-cper
-```
-
----
-
 ## Commands
 
 ### Available Commands:
