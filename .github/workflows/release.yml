@@ -42,6 +42,10 @@ jobs:
             mv dist/cper dist/cper-macos
           fi
 
+      - name: Install zip (Linux only)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y zip
+
       - name: Compress binaries into zip
         shell: bash
         run: |
