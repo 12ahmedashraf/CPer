@@ -3,7 +3,11 @@ name: Build and Release
 on:
   push:
     tags:
-      - "v*.*.*"   
+      - "v*.*.*"
+
+permissions:
+  contents: write 
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -24,8 +28,7 @@ jobs:
         run: pip install -r requirements.txt pyinstaller
 
       - name: Build binary
-        run: |
-          pyinstaller --onefile main.py -n cper
+        run: pyinstaller --onefile main.py -n cper
 
       - name: Upload binaries to release
         uses: softprops/action-gh-release@v1
