@@ -28,7 +28,8 @@ jobs:
         run: pip install -r requirements.txt pyinstaller
 
       - name: Build binary
-        run: pyinstaller --onefile main.py -n cper
+        run: |
+          pyinstaller --onefile --clean --noupx main.py -n cper
 
       - name: Rename binary by OS
         shell: bash
