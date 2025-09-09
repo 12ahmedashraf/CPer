@@ -1,6 +1,6 @@
 # cper
 
-[![Build and Release](https://github.com/<your-username>/<your-repo>/actions/workflows/release.yml/badge.svg)](https://github.com/<your-username>/<your-repo>/actions)
+[![Build and Release](https://github.com/12ahmedashraf/CPer/actions/workflows/release.yml/badge.svg)](https://github.com/12ahmedashraf/CPer/actions)
 
 `cper` is a **terminal program** designed for **competitive programmers** to:
 
@@ -8,11 +8,11 @@
 - Track your progress
 - Train effectively on **Codeforces**
 
-**Track. Practice. Dominate!** 🚀
+**Track. Practice. Dominate!**
 
 ---
 
-## ✨ Features
+## Features
 
 - Cross-platform binaries (**Windows**, **Linux**, **macOS**)
 - Save and manage your Codeforces handle
@@ -23,7 +23,7 @@
 
 ---
 
-## 📦 Installation
+## Installation
 
 1. Go to the **[Releases](https://github.com/<your-username>/<your-repo>/releases)** page.
 2. Download the latest binary for your OS:
@@ -42,7 +42,7 @@
 
 ---
 
-## ▶️ Usage
+## Usage
 
 Run directly:
 
@@ -65,7 +65,7 @@ cper
 
 ---
 
-## 📖 Commands
+## Commands
 
 ### Available Commands:
 
@@ -80,7 +80,7 @@ cper
 
 ---
 
-## 🛠️ Build From Source (Optional)
+## Build From Source (Optional)
 
 ```bash
 git clone https://github.com/<your-username>/<your-repo>.git
