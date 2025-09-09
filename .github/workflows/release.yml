@@ -3,6 +3,10 @@ name: Build Release
 on:
   release:
     types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write   
 
 jobs:
   build:
@@ -24,8 +28,7 @@ jobs:
         run: pip install -r requirements.txt pyinstaller
 
       - name: Build binary
-        run: |
-          pyinstaller --onefile main.py -n cper
+        run: pyinstaller --onefile main.py -n cper
 
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v1
