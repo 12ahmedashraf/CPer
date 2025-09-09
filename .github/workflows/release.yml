@@ -31,12 +31,13 @@ jobs:
         run: pyinstaller --onefile main.py -n cper
 
       - name: Rename binary by OS
+        shell: bash
         run: |
           if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
             mv dist/cper.exe dist/cper-windows.exe
           elif [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
             mv dist/cper dist/cper-linux
-          else
+          elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
             mv dist/cper dist/cper-macos
           fi
 
